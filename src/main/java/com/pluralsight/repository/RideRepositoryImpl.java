@@ -24,5 +24,15 @@ public class RideRepositoryImpl implements RideRepository {
 		rides.add(ride);
 		return rides;
 	}
-	
+
+	@Override
+	public Ride createRide(Ride ride) {
+	    // update is used for insert update and delete
+        // uses the standard prepared statement approach
+
+		jdbcTemplate.update("insert into ride (name, duration) values (?,?)", ride.getName(), ride.getDuration());
+
+		return null;
+	}
+
 }
