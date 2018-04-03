@@ -33,9 +33,9 @@ public class RideRepositoryImpl implements RideRepository {
 	    // update is used for insert update and delete
         // uses the standard prepared statement approach
 
-		//jdbcTemplate.update("insert into ride (name, duration) values (?,?)", ride.getName(), ride.getDuration());
+		jdbcTemplate.update("insert into ride (name, duration) values (?,?)", ride.getName(), ride.getDuration());
 
-		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+/*		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
 
 		List<String> columns = new ArrayList<>();
 		columns.add("name");
@@ -55,7 +55,7 @@ public class RideRepositoryImpl implements RideRepository {
 
 		Number key = simpleJdbcInsert.executeAndReturnKey(data);
 
-		System.out.println(key);
+		System.out.println(key);*/
 
 		return null;
 	}
