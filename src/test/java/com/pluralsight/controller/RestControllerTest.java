@@ -1,5 +1,6 @@
 package com.pluralsight.controller;
 
+import java.io.ObjectInputStream;
 import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -29,20 +30,7 @@ public class RestControllerTest {
 	}
 
 	@Test(timeout = 5000)
-	public void testCreateRidePut() {
-		System.out.println("PUT");
-		RestTemplate restTemplate = new RestTemplate();
-
-		Ride ride = new Ride();
-		ride.setName("Bob Sled");
-		ride.setDuration(35);
-
-		restTemplate.put("http://localhost:8080/ride_tracker/ride", ride);
-	}
-
-	@Test(timeout = 5000)
 	public void testCreateRidePost() {
-		System.out.println("POST");
 		RestTemplate restTemplate = new RestTemplate();
 
 		Ride ride = new Ride();
@@ -53,4 +41,39 @@ public class RestControllerTest {
 
 		System.out.println(postedObject.getId());
 	}
+
+	@Test(timeout = 5000)
+	public void testGetRide() {
+		RestTemplate restTemplate = new RestTemplate();
+
+		Ride ride = restTemplate.getForObject("http://localhost:8080/ride_tracker/ride/8", Ride.class);
+
+		System.out.println(ride.getId());
+		System.out.println(ride.getName());
+	}
+
+	@Test(timeout = 5000)
+	public void testBatchUpdate() {
+		RestTemplate restTemplate = new RestTemplate();
+
+		restTemplate.getForObject("http://localhost:8080/ride_tracker/batch", Object.class);
+	}
+
+    @Test(timeout = 5000)
+    public void testUpdateRide() {
+        RestTemplate restTemplate = new RestTemplate();
+
+        Ride ride = restTemplate.getForObject("http://localhost:8080/ride_tracker/ride/8", Ride.class);
+
+        System.out.println("before update " + ride.getDuration());
+
+        ride.setDuration(ride.getDuration() + 1);
+
+        restTemplate.put("http://localhost:8080/ride_tracker/ride", ride);
+
+		Ride newRide = restTemplate.getForObject("http://localhost:8080/ride_tracker/ride/8", Ride.class);
+
+		System.out.println("after update " + newRide.getDuration());
+
+    }
 }
