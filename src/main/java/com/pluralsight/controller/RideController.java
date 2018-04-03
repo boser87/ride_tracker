@@ -27,4 +27,9 @@ public class RideController {
 	public @ResponseBody Ride createRide(@RequestBody Ride ride) {
 		return rideService.createRide(ride);
 	}
+
+	@RequestMapping(value = "/ride", method = RequestMethod.POST)
+	public @ResponseBody Ride createRideAndReturnItBack(@RequestBody Ride ride) {
+		return rideService.createRide(ride);
+	}
 }

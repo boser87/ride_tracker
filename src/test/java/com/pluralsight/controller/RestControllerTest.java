@@ -29,7 +29,8 @@ public class RestControllerTest {
 	}
 
 	@Test(timeout = 5000)
-	public void testCreateRide() {
+	public void testCreateRidePut() {
+		System.out.println("PUT");
 		RestTemplate restTemplate = new RestTemplate();
 
 		Ride ride = new Ride();
@@ -37,5 +38,19 @@ public class RestControllerTest {
 		ride.setDuration(35);
 
 		restTemplate.put("http://localhost:8080/ride_tracker/ride", ride);
+	}
+
+	@Test(timeout = 5000)
+	public void testCreateRidePost() {
+		System.out.println("POST");
+		RestTemplate restTemplate = new RestTemplate();
+
+		Ride ride = new Ride();
+		ride.setName("Bob Sled");
+		ride.setDuration(35);
+
+		Ride postedObject = restTemplate.postForObject("http://localhost:8080/ride_tracker/ride", ride, Ride.class);
+
+		System.out.println(postedObject.getId());
 	}
 }
